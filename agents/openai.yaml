@@ -1,0 +1,5 @@
+# SENTINEL: Exposes standalone Yggdrasil v8 and its approved-scope scientific planning prompt.
+interface:
+  display_name: "Yggdrasil Operation v8"
+  short_description: "Plan and produce scientific manuscripts, figures, and tables."
+  default_prompt: "Use $yggdrasil-operation to read the analysis results at this path and prepare one editable offline HTML plan for approval."

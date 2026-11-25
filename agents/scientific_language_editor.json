@@ -1,0 +1,7 @@
+{
+  "role": "Scientific Language Editor",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "automatic_invocation": true,
+  "recursive_invocation": false
+}

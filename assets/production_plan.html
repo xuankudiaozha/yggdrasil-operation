@@ -1,0 +1,213 @@
+<!doctype html>
+<!-- SENTINEL: Provides an editable offline manuscript plan with word budgets, bidirectional callouts, layout sketches, table previews, and review scope. -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>论文生产规划</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fffdf8;
+      --ink: #18241f;
+      --muted: #4c5952;
+      --green: #245d48;
+      --rule: #d8ddd5;
+      --wash: #e9efe6;
+      scroll-padding-top: 4rem;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.65 system-ui, sans-serif; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { line-height: 1.3; }
+    h1 { font-size: clamp(2rem, 5vw, 3.55rem); }
+    h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+    h3 { font-size: 1.05rem; }
+    p + p, h2 + p, h3 + p { margin-top: .5rem; }
+    a { color: var(--green); text-underline-offset: .18em; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+    :target { background: var(--wash); }
+    .wrap { width: min(65rem, calc(100% - 2rem)); margin-inline: auto; }
+    header { padding: clamp(1.8rem, 6vw, 4rem) 0 1.75rem; background: var(--wash); }
+    header p { margin: .5rem 0; }
+    header :last-child { margin-bottom: 0; }
+    nav { position: sticky; top: 0; z-index: 1; background: var(--paper); border-bottom: 1px solid var(--rule); }
+    nav .wrap { display: flex; overflow-x: auto; gap: 1.2rem; padding: .65rem 0; }
+    nav a { flex: 0 0 auto; white-space: nowrap; }
+    main { padding-bottom: 2rem; }
+    section { padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+    section h2 { margin-bottom: .75rem; }
+    .lead { max-width: 58rem; }
+    .meta, .links, figcaption { color: var(--muted); font-size: .9rem; }
+    details { border-block-start: 1px solid var(--rule); }
+    summary { padding: .65rem 0; cursor: pointer; font-weight: 650; }
+    summary .meta { margin-inline-start: .6rem; font-weight: 400; }
+    article, .display-body { padding: .2rem 0 .8rem; }
+    article + article { border-block-start: 1px solid var(--rule); padding-top: .65rem; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+    .board svg { display: block; width: 100%; height: auto; background: white; border: 1px solid var(--rule); border-radius: .25rem; }
+    .board figcaption { margin-top: .25rem; }
+    .table-scroll { overflow-x: auto; margin: .5rem 0; }
+    table { width: 100%; border-collapse: collapse; text-align: start; }
+    th, td { padding: .42rem .6rem; border-block-end: 1px solid var(--rule); text-align: start; }
+    th { background: var(--wash); }
+    .skip { position: absolute; inset: .55rem auto auto 1rem; z-index: 2; padding: .35rem .6rem; background: white; transform: translateY(-200%); }
+    .skip:focus { transform: none; }
+
+    @media (max-width: 42rem) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      summary .meta { margin-inline-start: .25rem; }
+    }
+
+    @media print {
+      nav, .skip { display: none; }
+      body, header { background: white; }
+      header { padding: 0; }
+      .wrap { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#plan">跳到规划</a>
+  <header>
+    <div class="wrap">
+      <p class="meta">论文生产规划 · 待审核</p>
+      <h1>论文拟题</h1>
+      <p class="meta">规划范围：待填写</p>
+    </div>
+  </header>
+  <!-- 可直接修改页面正文。删减章节时，同时调整目录、段落引注和图表回链。 -->
+  <nav aria-label="规划目录">
+    <div class="wrap">
+      <a href="#narrative">主线与证据</a>
+      <a href="#manuscript">全文与篇幅</a>
+      <a href="#displays">正文图表</a>
+      <a href="#supplements">补充材料</a>
+      <a href="#decisions">待审核</a>
+    </div>
+  </nav>
+  <main id="plan" class="wrap">
+    <section id="narrative">
+      <h2>主线与证据</h2>
+      <p class="lead">概括研究问题、主结果及其解释范围。列出影响结论的阴性结果或敏感性结果。</p>
+      <!-- 将证据链接指向已有结果文件。例如 <p class="links"><a href="../results/main_results.csv">主分析结果</a></p>。 -->
+    </section>
+    <section id="manuscript">
+      <h2>全文与篇幅</h2>
+      <p class="meta">正文计划词数和硬上限待定。各章以“计划词数 / 硬上限”记录。</p>
+      <details id="abstract">
+        <summary>Abstract <span class="meta">— / — 词</span></summary>
+        <article id="abstract-1">
+          <h3>摘要 ¶1</h3>
+          <p>指定主要问题、方法、结果和回答。</p>
+        </article>
+      </details>
+      <details id="introduction">
+        <summary>Introduction <span class="meta">— / — 词</span></summary>
+        <article id="introduction-1">
+          <h3>引言 ¶1</h3>
+          <p>交代背景、研究缺口及本研究要回答的问题。按实际段数拆分。</p>
+        </article>
+      </details>
+      <details id="methods">
+        <summary>Methods <span class="meta">— / — 词</span></summary>
+        <article id="methods-1">
+          <h3>方法 ¶1</h3>
+          <p>记录本段需要说明的分析对象、数据和统计方法。</p>
+        </article>
+      </details>
+      <details id="results" open>
+        <summary>Results <span class="meta">— / — 词</span></summary>
+        <article id="results-1">
+          <h3>结果 ¶1</h3>
+          <p>明示本段拟报告的结果和顺序。将图表引用放在它支撑的发现之后。</p>
+          <p class="links">主结果后 <a href="#figure-1-a">Fig. 1A</a> · 补充数值 <a href="#table-1">Table 1</a></p>
+        </article>
+      </details>
+      <details id="discussion">
+        <summary>Discussion <span class="meta">— / — 词</span></summary>
+        <article id="discussion-1">
+          <h3>讨论 ¶1</h3>
+          <p>记录本段要解释的发现、可比较的外部证据和必要的限定。</p>
+        </article>
+      </details>
+      <details id="conclusion">
+        <summary>Conclusion <span class="meta">— / — 词</span></summary>
+        <article id="conclusion-1">
+          <h3>结论 ¶1</h3>
+          <p>用研究结果直接回答问题，并限定适用范围。</p>
+        </article>
+      </details>
+    </section>
+    <section id="displays">
+      <h2>正文图表</h2>
+      <!-- 按计划复制或移除图表块。更新块内 ID 及双向链接。图注、表注及统计细节只保留本项所需内容。 -->
+      <details id="figure-1" open>
+        <summary>Fig. 1 · 待定图名</summary>
+        <div class="display-body layout">
+          <figure class="board">
+            <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="figure-1-sketch-title" viewBox="0 0 400 240">
+              <title id="figure-1-sketch-title">Figure 1 的版式草图</title>
+              <rect x="20" y="20" width="360" height="200" rx="6" fill="#f5f8f4" stroke="#9bada0" />
+              <text x="34" y="47" fill="#245d48" font-size="16">A</text>
+              <!-- Replace the neutral axes with geometry appropriate to the planned chart. -->
+              <path d="M70 65v117h260" fill="none" stroke="#9bada0" stroke-width="2" />
+              <path d="M200 65v117" fill="none" stroke="#9bada0" stroke-dasharray="4 5" />
+            </svg>
+            <figcaption>版式占位，面积及比例以本图实际规划为准。</figcaption>
+          </figure>
+          <div id="figure-1-a">
+            <h3>面板 A</h3>
+            <p>填写面板任务、图型、轴与单位、排序及比较。</p>
+            <p class="links">正文位置 <a href="#results-1">Results ¶1</a></p>
+            <!-- 存在时链接一个原图和一个直接数据源，不向正图写入此处的排版说明。 -->
+          </div>
+        </div>
+      </details>
+      <details id="table-1">
+        <summary>Table 1 · 待定表名</summary>
+        <div class="display-body">
+          <p>填写表的内容、列单位与行的范围。</p>
+          <p class="links">正文位置 <a href="#results-1">Results ¶1</a></p>
+          <div class="table-scroll" role="region" aria-label="Table 1 数据预览" tabindex="0">
+            <table>
+              <caption>表格结构占位</caption>
+              <thead>
+                <tr><th scope="col">项目</th><th scope="col">统计量（单位）</th></tr>
+              </thead>
+              <tbody>
+                <!-- 用实际证据填充预览行。标题标示已核对的总行数及展示范围。 -->
+              </tbody>
+            </table>
+          </div>
+          <!-- 链接直接数据源或当前工作簿。 -->
+        </div>
+      </details>
+    </section>
+    <section id="supplements">
+      <h2>补充材料</h2>
+      <p>列出各项的目的和正文引用位置。补充图表可沿用上面的图表结构。</p>
+    </section>
+    <section id="decisions">
+      <h2>待审核</h2>
+      <ul>
+        <li>确认生产范围、篇幅、正文与补充的分配，以及拟沿用的图表。</li>
+        <li>待裁决事项按本项目实际填写。</li>
+      </ul>
+    </section>
+  </main>
+  <script>
+    function revealTarget() {
+      const target = document.getElementById(location.hash.slice(1));
+      if (!target) return;
+      for (let node = target; node; node = node.parentElement) {
+        if (node.tagName === "DETAILS") node.open = true;
+      }
+      requestAnimationFrame(() => target.scrollIntoView({block: "start"}));
+    }
+    window.addEventListener("hashchange", revealTarget);
+    if (location.hash) revealTarget();
+  </script>
+</body>
+</html>
